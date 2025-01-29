@@ -1,0 +1,39 @@
+# Archivos y carpetas de VSCode
+.vscode/ 
+
+
+
+# Archivos binarios y librerías compartidas (Go y C#)
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Archivos de prueba generados con `go test -c`
+*.test
+
+# Archivos de cobertura (Go)
+*.out
+
+# Archivos de dependencias de Go (opcional)
+# vendor/
+
+# Archivos de configuración del espacio de trabajo de Go
+go.work
+go.work.sum
+
+# Archivos de entorno (Go y C#)
+.env
+
+# Archivos y carpetas de Visual Studio (C#)
+.vs/
+.vs2019/
+.vs2017/
+
+# Archivos generados por compilación y construcción en C#
+bin/
+obj/
+
+# Archivos de dependencia de NuGet en C#
+packages/
