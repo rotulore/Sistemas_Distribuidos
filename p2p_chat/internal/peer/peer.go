@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"os"
+
 )
 
 var username string
@@ -12,12 +13,15 @@ var username string
 func StartListening(port string, user string) {
 	username = user
 	listener, err := net.Listen("tcp", ":"+port)
+
 	if err != nil {
 		fmt.Println("Error listening:", err.Error())
+
 		return
 	}
 
 	defer listener.Close()
+
 	fmt.Printf("Peer is listening on port %v...\n", port)
 	for {
 		conn, err := listener.Accept()
@@ -27,9 +31,11 @@ func StartListening(port string, user string) {
 		}
 
 		go recieveMessage(conn)
+
 		sendMessage(conn)
 	}
 }
+
 
 func ConnectToPeer(address string, user string) {
 	username = user
@@ -77,5 +83,6 @@ func sendMessage(conn net.Conn) {
 		}
 		writer.Flush()
 	}
+
 
 }
