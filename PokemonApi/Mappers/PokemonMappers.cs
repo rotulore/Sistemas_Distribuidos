@@ -19,7 +19,8 @@ return null;
         Stats=new Stats{
             Attack=entity.Attack,
             Defense=entity.Defense,
-            Speed=entity.Speed
+            Speed=entity.Speed,
+             Health = entity.Health
         }
     };
 }
@@ -32,7 +33,8 @@ return new PokemonResponseDto{
     Stats=new StatsDto{
         Attack=pokemon.Stats.Attack,
         Defense=pokemon.Stats.Defense,
-        Speed=pokemon.Stats.Speed
+        Speed=pokemon.Stats.Speed,
+        Health=pokemon.Stats.Health
     }
 
 };

@@ -20,6 +20,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder){
   entity.Property(s=>s.Attack).IsRequired();
    entity.Property(s=>s.Defense).IsRequired();
     entity.Property(s=>s.Speed).IsRequired();
+    entity.Property(s => s.Health);
     });
     }
     }
