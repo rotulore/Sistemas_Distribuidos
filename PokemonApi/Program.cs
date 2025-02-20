@@ -14,6 +14,7 @@ builder.Services.AddSoapCore();
 builder.Services.AddSingleton<IPokemonService, PokemonService>();
 builder.Services.AddScoped<IPokemonRespository,PokemonRepository>();
 
+
 builder.Services.AddDbContext<RelationalDBContext>(options => 
 options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), 
 ServerVersion.AutoDetect(

@@ -6,4 +6,10 @@ namespace PokemonAPi.Services;
     public interface IPokemonService{
         [OperationContract ]
         Task<PokemonResponseDto> GetPokemonById(Guid id,CancellationToken cancellationToken);
+
+        [OperationContract ]
+        Task<bool> DeletePokemonById(Guid id, CancellationToken cancellationToken);
+
+        [OperationContract]
+        Task<PokemonResponseDto> CreatePokemon(CreatePokemonDto createPokemonDto,CancellationToken cancellationToken);
     }
