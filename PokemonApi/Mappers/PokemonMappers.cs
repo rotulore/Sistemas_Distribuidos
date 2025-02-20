@@ -1,3 +1,5 @@
+
+
 using PokemonAPi.Dtos;
 using PokemonAPi.Infrastructure.Entities;
 using PokemonAPi.Models;
@@ -38,6 +40,20 @@ return new PokemonResponseDto{
     }
 
 };
+}
+
+public static PokemonEntity ToEntity(this Pokemon pokemon){
+
+    return new PokemonEntity{
+        Id=pokemon.Id,
+        Name=pokemon.name,
+        Type=pokemon.Type,
+        Level=pokemon.Level,
+        Attack=pokemon.Stats.Attack,
+        Defense=pokemon.Stats.Defense,
+        Speed=pokemon.Stats.Speed,
+        Health=pokemon.Stats.Health
+    };
 }
 }
 
