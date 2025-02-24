@@ -11,8 +11,5 @@ public class StatsDto
       [DataMember(Name ="Speed",Order =3)]
         public int Speed{get;set;}
 
-         [DataMember(Name = "Health", Order = 4)]  // Agregado Health
-    public int Health { get; set; }
-
 
 }

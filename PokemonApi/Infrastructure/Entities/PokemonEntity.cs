@@ -13,6 +13,4 @@ public class PokemonEntity
 
     public int Speed { get; set; }
 
-    public int Health { get; set; }
-
 }
