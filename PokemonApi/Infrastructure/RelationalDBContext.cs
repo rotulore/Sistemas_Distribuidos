@@ -6,6 +6,8 @@ public class RelationalDBContext : DbContext
 {
     public DbSet<PokemonEntity> Pokemons { get; set; }
     public DbSet<HobbiesEntity> Hobbies { get; set;}
+
+     public DbSet<BooksEntity> Books { get; set;}
     public RelationalDBContext(DbContextOptions<RelationalDBContext> options) : base(options){
 
 }
@@ -28,6 +30,15 @@ protected override void OnModelCreating(ModelBuilder modelBuilder){
         entity.HasKey(s=>s.Id);
         entity.Property(s=>s.Name).IsRequired().HasMaxLength(100);
         entity.Property(s=>s.Top).IsRequired();
+    });
+
+    modelBuilder.Entity<BooksEntity>(entity=>{
+        entity.HasKey(s=>s.id);
+        entity.Property(s=>s.title).IsRequired().HasMaxLength(100);
+         entity.Property(s=>s.author).IsRequired().HasMaxLength(100);
+          entity.Property(s=>s.publishedDate).IsRequired();
+
+
     });
 
     }
