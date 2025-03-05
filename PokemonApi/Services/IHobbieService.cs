@@ -12,4 +12,9 @@ public interface IHobbieService
         [OperationContract]
          Task<List<HobbiesResponseDto>> GetHobbieByName(string name,CancellationToken cancellationToken);
 
+        [OperationContract]
+        Task<HobbiesResponseDto> CreateHobbie(CreateHobbieDto createHobbieDto,CancellationToken cancellationToken);
+
+        [OperationContract]
+        Task<HobbiesResponseDto> UpdateHobbie(UpdateHobbieDto hobbie,CancellationToken cancellationToken);
 }

@@ -2,6 +2,7 @@ using System.ServiceModel;
 using PokemonAPi.Dtos;
 using PokemonAPi.Repositories;
 using PokemonAPi.Mappers;
+using PokemonAPI.Validators;
 
 namespace PokemonAPi.Services;
 
@@ -50,5 +51,31 @@ public class HobbieService : IHobbieService
     return hobbies.Select(h => h.ToDto()).ToList();
 
          }
+
+
+         public async Task<HobbiesResponseDto> CreateHobbie(CreateHobbieDto createHobbie, CancellationToken cancellationToken){
+        var hobbieToCreate = createHobbie.ToModel();
+        hobbieToCreate.ValidateName().ValidateTop();
+
+        await _hobbieRepository.AddAsync(hobbieToCreate, cancellationToken);
+        return hobbieToCreate.ToDto();
+    }
+
+    public async Task<HobbiesResponseDto> UpdateHobbie(UpdateHobbieDto hobbie,CancellationToken cancellationToken){
+
+        var hobbieToUpdate=await _hobbieRepository.GetHobbyByIdAsync(hobbie.Id,cancellationToken);
+
+        if(hobbieToUpdate is null){
+            throw new FaultException("Hobbie not found");
+        }
+
+        hobbieToUpdate.Name=hobbie.Name;
+        hobbieToUpdate.Top=hobbie.Top;
+
+        await _hobbieRepository.UpdateAsync(hobbieToUpdate,cancellationToken);
+        return hobbieToUpdate.ToDto();
+     
+
+    }
 
 }
