@@ -12,4 +12,7 @@ namespace PokemonAPi.Services;
 
         [OperationContract]
         Task<PokemonResponseDto> CreatePokemon(CreatePokemonDto createPokemonDto,CancellationToken cancellationToken);
+
+        [OperationContract]
+        Task<PokemonResponseDto> UpdatePokemon(UpdatePokemonDto pokemon,CancellationToken cancellationToken);
     }

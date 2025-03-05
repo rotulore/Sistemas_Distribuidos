@@ -2,6 +2,7 @@ using System.ServiceModel;
 using PokemonAPi.Dtos;
 using PokemonAPi.Repositories;
 using PokemonAPi.Mappers;
+using PokemonAPI.Validators;
 
 namespace PokemonAPi.Services;
 
@@ -34,8 +35,34 @@ public class PokemonService : IPokemonService
     return true;
     }
 
-    public async Task<PokemonResponseDto> CreatePokemon(CreatePokemonDto pokemon, CancellationToken cancellationToken){
-return null;
+    public async Task<PokemonResponseDto> CreatePokemon(CreatePokemonDto createPokemon, CancellationToken cancellationToken){
+        var pokemonToCreate = createPokemon.ToModel();
+        pokemonToCreate.ValidateName().ValidateType().ValidateLevel();
+
+        await _pokemonRepository.AddAsync(pokemonToCreate, cancellationToken);
+        return pokemonToCreate.ToDto();
+    }
+
+    public async Task<PokemonResponseDto> UpdatePokemon(UpdatePokemonDto pokemon,CancellationToken cancellationToken){
+
+        var pokemonToUpdate=await _pokemonRepository.GetByIdAsync(pokemon.Id,cancellationToken);
+
+        if(pokemonToUpdate is null){
+            throw new FaultException("Pokemon not found");
+        }
+
+        pokemonToUpdate.name=pokemon.Name;
+        pokemonToUpdate.Type=pokemon.Type;
+        pokemonToUpdate.Level=pokemon.Level;
+        pokemonToUpdate.Stats.Attack=pokemon.Stats.Attack;
+        pokemonToUpdate.Stats.Defense=pokemon.Stats.Defense;
+        pokemonToUpdate.Stats.Speed=pokemon.Stats.Speed;
+        pokemonToUpdate.Stats.Health=pokemon.Stats.Health;
+
+        await _pokemonRepository.UpdateAsync(pokemonToUpdate,cancellationToken);
+        return pokemonToUpdate.ToDto();
+     
+
     }
     
 }
