@@ -11,4 +11,8 @@ public interface IHobbiesRespository
 
     Task <List<Hobbie>> GetHobbiesByNameAsync (string name, CancellationToken cancellationToken);
 
+    Task AddAsync(Hobbie hobbie,CancellationToken cancellationToken);
+
+Task UpdateAsync(Hobbie hobbie,CancellationToken cancellationToken);
+
 }
