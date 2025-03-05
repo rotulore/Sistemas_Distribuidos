@@ -27,7 +27,7 @@ namespace PokemonAPi.Repositories;
      }
 
 //Get hobbie by name
- public async Task<List<Hobbie>>GetHobbiesByNameAsync(string name,CancellationToken cancellationToken){
+ public async Task <List<Hobbie>> GetHobbiesByNameAsync(string name,CancellationToken cancellationToken){
         var hobbie = await _context.Hobbies.AsNoTracking().Where(s => s.Name.Contains(name)).ToListAsync(cancellationToken);
      return hobbie.Select(h => h.ToModel()).ToList(); 
      }

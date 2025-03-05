@@ -10,4 +10,5 @@ public class Pokemon
     public int Level{ get; set; }
     
     public Stats Stats{ get; set; }
+   
 }
