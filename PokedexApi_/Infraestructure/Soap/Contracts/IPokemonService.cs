@@ -6,6 +6,9 @@ namespace PokedexApi_.Infraestructure.Soap.Contracts;
     public interface IPokemonService{
         [OperationContract ]
         Task<PokemonResponseDto> GetPokemonById(Guid id,CancellationToken cancellationToken);
+        
+        [OperationContract]
+         Task<List<PokemonResponseDto>> GetPokemonByName(string name,CancellationToken cancellationToken);
 
         [OperationContract ]
         Task<bool> DeletePokemonById(Guid id, CancellationToken cancellationToken);

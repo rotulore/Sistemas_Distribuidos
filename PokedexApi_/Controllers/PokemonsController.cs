@@ -31,4 +31,17 @@ public class PokemonsController: ControllerBase
         return Ok(pokemon.ToDto());
         
     }
+    //localhost/api/v1/pokemons/byname/Pikachu
+[HttpGet("byname/{name}")]
+public async Task<ActionResult<List<PokemonResponse>>> GetPokemonByName(string name, CancellationToken cancellationToken)
+{
+    var pokemons = await _pokemonService.GetPokemonByName(name, cancellationToken);
+
+    if (pokemons == null || !pokemons.Any())
+    {
+        return Ok(new List<PokemonResponse>()); // Mejor devolver lista vacía en lugar de 404
+    }
+    return Ok(pokemons.Select(p => p.ToDto()).ToList());
+}
+    
 }

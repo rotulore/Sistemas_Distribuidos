@@ -25,12 +25,27 @@ public class PokemonRepository: IPokemonRepository
          var pokemon=await _pokemonService.GetPokemonById(id,cancellationToken);
          return pokemon.ToModel();
      }
-     catch (FaultException ex)when (ex.Message=="Pokemon not found :(")
+     catch (FaultException ex)when (ex.Message=="Pokemon not found")
     {
         _logger.LogError(ex,"Failed to get pokemon with id:{id}",id);
         return null;
      }  
     }
+
+    public async Task<IEnumerable<Pokemon>?> GetPokemonByNameAsync(string name, CancellationToken cancellationToken)
+{
+    try
+    {
+        var pokemons = await _pokemonService.GetPokemonByName(name, cancellationToken);
+        return pokemons?.Select(p => p.ToModel()) ?? new List<Pokemon>();
+    }
+    catch (FaultException ex) when (ex.Message.Contains("Pokemon not found"))
+    {
+        _logger.LogError(ex, "Failed to get pokemon with name: {name}", name);
+        return Enumerable.Empty<Pokemon>();
+    }
+}
+
 
 
 }
