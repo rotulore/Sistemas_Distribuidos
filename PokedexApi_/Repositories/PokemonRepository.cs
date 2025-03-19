@@ -32,5 +32,20 @@ public class PokemonRepository: IPokemonRepository
      }  
     }
 
+    public async Task<IEnumerable<Pokemon>?> GetPokemonByNameAsync(string name, CancellationToken cancellationToken)
+{
+    try
+    {
+        var pokemons = await _pokemonService.GetPokemonByName(name, cancellationToken);
+        return pokemons?.Select(p => p.ToModel()) ?? new List<Pokemon>();
+    }
+    catch (FaultException ex) when (ex.Message.Contains("Pokemon not found"))
+    {
+        _logger.LogError(ex, "Failed to get pokemon with name: {name}", name);
+        return Enumerable.Empty<Pokemon>();
+    }
+}
+
+
 
 }

@@ -7,6 +7,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddScoped<IPokemonService, PokemonService>();
 builder.Services.AddScoped<IPokemonRepository, PokemonRepository>();
+builder.Services.AddScoped<IHobbiesService, HobbiesService>();
+builder.Services.AddScoped<IHobbieRepository, HobbieRepository>();
 var app=builder.Build();
 
 

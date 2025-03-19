@@ -3,6 +3,8 @@ namespace PokemonAPi.Repositories;
 public  interface IPokemonRespository
 { //r
     Task<Pokemon> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+
+    Task <List<Pokemon>> GetPokemonsByNameAsync (string name, CancellationToken cancellationToken);
     
     Task DeleteAsync (Pokemon pokemon,CancellationToken cancellationToken);
 
