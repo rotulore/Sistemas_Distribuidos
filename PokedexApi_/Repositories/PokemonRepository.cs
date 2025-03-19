@@ -25,7 +25,7 @@ public class PokemonRepository: IPokemonRepository
          var pokemon=await _pokemonService.GetPokemonById(id,cancellationToken);
          return pokemon.ToModel();
      }
-     catch (FaultException ex)when (ex.Message=="Pokemon not found :(")
+     catch (FaultException ex)when (ex.Message=="Pokemon not found")
     {
         _logger.LogError(ex,"Failed to get pokemon with id:{id}",id);
         return null;

@@ -26,7 +26,7 @@ public async Task<Hobbie> GetHobbyByIdAsync(int id, CancellationToken cancellati
         var hobbie = await _hobbieService.GetHobbieById(id, cancellationToken);
         return hobbie.ToModel();
     }
-    catch (FaultException ex) when (ex.Message == "Hobbie not found :(")
+    catch (FaultException ex) when (ex.Message == "Hobbie not found")
     {
         _logger.LogError(ex, "Failed to get hobbie with id: {id}", id);
         return null;
