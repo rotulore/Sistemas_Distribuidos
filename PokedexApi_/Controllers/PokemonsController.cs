@@ -32,8 +32,8 @@ public class PokemonsController: ControllerBase
         
     }
     //localhost/api/v1/pokemons/byname/Pikachu
-[HttpGet("byname/{name}")]
-public async Task<ActionResult<List<PokemonResponse>>> GetPokemonByName(string name, CancellationToken cancellationToken)
+[HttpGet]
+public async Task<ActionResult<List<PokemonResponse>>> GetPokemonByName([FromQuery]string name, CancellationToken cancellationToken)
 {
     var pokemons = await _pokemonService.GetPokemonByName(name, cancellationToken);
 
@@ -43,5 +43,20 @@ public async Task<ActionResult<List<PokemonResponse>>> GetPokemonByName(string n
     }
     return Ok(pokemons.Select(p => p.ToDto()).ToList());
 }
-    
-}
+//404 -not found
+//204 -No content(se encontro y elimino el pokemon) de forma correcta pero el body de respuesta esta vacia
+//200 -OK se encontró y se elimino el pokemon y en el body de respuesta se envia un msj de exito
+
+[HttpDelete("{id}")]
+public async Task<ActionResult> DeletePokemonById(Guid id, CancellationToken cancellationToken)
+{
+    var deleted = await _pokemonService.DeletePokemonByIdAsync(id, cancellationToken);
+
+    if (deleted)
+    {
+        return NoContent();
+    }
+
+    return NotFound();
+
+}}

@@ -46,4 +46,21 @@ public async Task<Hobbie> GetHobbyByIdAsync(int id, CancellationToken cancellati
         }
     }
 
+    public async Task<bool> DeleteHobbyByIdAsync(int id, CancellationToken cancellationToken)
+    {
+        try
+        {
+            await _hobbieService.DeleteHobbieById(id, cancellationToken);
+            return true;
+        }
+        catch (FaultException ex) when (ex.Message.Contains("Hobbie not found"))
+        {
+            return false;
+        }
+        catch (FaultException ex)
+    {
+        _logger.LogError(ex, "Failed to delete hobbie with id: {id}", id);
+        throw;
+    }
+    }
 }
