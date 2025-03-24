@@ -65,4 +65,19 @@ public class PokemonService : IPokemonService
 
     }
     
+
+    public async Task<List<PokemonResponseDto>> GetPokemonByName(string name,CancellationToken cancellationToken){
+
+          
+    var pokemons = await _pokemonRepository.GetPokemonsByNameAsync(name, cancellationToken);
+
+  
+    if (pokemons == null || !pokemons.Any())
+    {
+        return new List<PokemonResponseDto>();
+    }
+    
+  
+    return pokemons.Select(h => h.ToDto()).ToList();
+    }
 }
