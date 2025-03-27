@@ -29,8 +29,10 @@ public class HobbiesController:ControllerBase
         }
 
         // localhost/api/v1/hobbies/byname/Chess
-        [HttpGet("byname/{name}")]
-        public async Task<ActionResult<List<HobbieResponse>>> GetHobbiesByName(string name, CancellationToken cancellationToken)
+        //pokemons?name=pikach&variable2=343.....  query paremerters
+        //Se deja solo para query parameters  -->Se usa FromQuery en el metodo gethobbiesbyname
+        [HttpGet]
+        public async Task<ActionResult<List<HobbieResponse>>> GetHobbiesByName([FromQuery]string name, CancellationToken cancellationToken)
         {
             var hobbies = await _hobbyService.GetHobbiesByName(name, cancellationToken);
 
@@ -39,5 +41,16 @@ public class HobbiesController:ControllerBase
                 return Ok(new List<HobbieResponse>()); // Retornar lista vacía si no hay coincidencias
             }
             return Ok(hobbies.Select(h => h.ToDto()).ToList());
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteHobbyById(int id, CancellationToken cancellationToken)
+        {
+            var result = await _hobbyService.DeleteHobbieByIdAsync(id, cancellationToken);
+            if (!result)
+            {
+                return NotFound();
+            }
+            return NoContent();
         }
     }

@@ -21,4 +21,9 @@
        var response = await _hobbieRepository.GetHobbiesByNameAsync(name, cancellationToken);
        return response?.ToList() ?? new List<Hobbie>();
      }
+
+     public async Task<bool> DeleteHobbieByIdAsync(int id, CancellationToken cancellationToken)
+     {
+       return await _hobbieRepository.DeleteHobbyByIdAsync(id, cancellationToken);
+     }
    }
