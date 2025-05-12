@@ -5,4 +5,6 @@ public interface IHobbiesService
 {
     Task<Hobbie?> GetHobbieById(int id, CancellationToken cancellationToken);
     Task<List<Hobbie>> GetHobbiesByName(string name, CancellationToken cancellationToken);
+
+    Task<bool> DeleteHobbieByIdAsync(int id, CancellationToken cancellationToken);
 }
