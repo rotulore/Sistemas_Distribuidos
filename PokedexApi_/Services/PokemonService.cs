@@ -22,4 +22,8 @@
     return response?.ToList() ?? new List<Pokemon>();
 }
 
+public async Task<bool> DeletePokemonByIdAsync(Guid id, CancellationToken cancellationToken){
+    return await _pokemonRepository.DeletePokemonByIdAsync(id, cancellationToken);
+}
+
        }

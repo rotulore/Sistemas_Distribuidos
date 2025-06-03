@@ -46,6 +46,24 @@ public class PokemonRepository: IPokemonRepository
     }
 }
 
+public async Task<bool> DeletePokemonByIdAsync(Guid id, CancellationToken cancellationToken)
+{
+    try
+    {
+         await _pokemonService.DeletePokemonById(id, cancellationToken);
+         return true;
+    }
+    catch (FaultException ex) when (ex.Message.Contains("Pokemon not found"))
+    {
+       
+        return false;
+    }
+    catch (FaultException ex)
+    {
+        _logger.LogError(ex, "Failed to delete pokemon with id: {id}", id);
+        throw;
+    }
 
 
+}
 }
